@@ -1,0 +1,71 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: portfolio-assurance-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-portfolio_assurance}
+      POSTGRES_USER: ${POSTGRES_USER:-portfolio}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-portfolio_dev_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    volumes:
+      - ./scripts/create_quote_schema.sql:/docker-entrypoint-initdb.d/001_create_quote_schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-portfolio} -d ${POSTGRES_DB:-portfolio_assurance}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    shm_size: 128mb
+
+  adminer:
+    image: adminer:4-standalone
+    container_name: portfolio-assurance-adminer
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    ports:
+      - "${ADMINER_PORT:-8081}:8080"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: portfolio-assurance-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://0.0.0.0:8080
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      Cors__AllowedOrigins__0: http://localhost:${FRONTEND_PORT:-5173}
+      ConnectionStrings__QuoteDatabase: Host=postgres;Port=5432;Database=${POSTGRES_DB:-portfolio_assurance};Username=${POSTGRES_USER:-portfolio};Password=${POSTGRES_PASSWORD:-portfolio_dev_password}
+    ports:
+      - "${BACKEND_PORT:-5080}:8080"
+    volumes:
+      - ./backend:/app
+      - dotnet-nuget-cache:/root/.nuget/packages
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: portfolio-assurance-frontend
+    depends_on:
+      backend:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:5080}
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
+
+volumes:
+  dotnet-nuget-cache:
+  frontend-node-modules:
