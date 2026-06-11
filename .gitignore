@@ -28,4 +28,8 @@ lerna-debug.log*
 # macOS
 .DS_Store
 
-/docs
+# Documentation generated for the project README.
+/docs/*
+!/docs/
+!/docs/installation-dependances-macos.md
+!/docs/installation-dependances-windows11.md
