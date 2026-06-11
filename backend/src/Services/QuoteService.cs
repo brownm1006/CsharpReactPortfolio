@@ -1,5 +1,9 @@
-using PortfolioClubAssurance.Api.Contracts;
-using PortfolioClubAssurance.Api.Data;
+using PortfolioClubAssurance.Api.Domain;
+using PortfolioClubAssurance.Api.Dtos.Lookups;
+using PortfolioClubAssurance.Api.Dtos.Requests;
+using PortfolioClubAssurance.Api.Dtos.Responses;
+using PortfolioClubAssurance.Api.Repositories;
+using PortfolioClubAssurance.Api.Services.Common;
 using PortfolioClubAssurance.Api.Validation;
 
 namespace PortfolioClubAssurance.Api.Services;

@@ -1,6 +1,9 @@
-using PortfolioClubAssurance.Api.Contracts;
+using PortfolioClubAssurance.Api.Dtos.Lookups;
+using PortfolioClubAssurance.Api.Dtos.Requests;
+using PortfolioClubAssurance.Api.Dtos.Responses;
+using PortfolioClubAssurance.Api.Services.Common;
 
-namespace PortfolioClubAssurance.Api.Data;
+namespace PortfolioClubAssurance.Api.Repositories;
 
 public interface IQuoteRepository
 {

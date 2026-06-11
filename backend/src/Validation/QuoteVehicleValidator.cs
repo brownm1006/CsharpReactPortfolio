@@ -1,4 +1,4 @@
-using PortfolioClubAssurance.Api.Contracts;
+using PortfolioClubAssurance.Api.Dtos.Requests;
 
 namespace PortfolioClubAssurance.Api.Validation;
 
