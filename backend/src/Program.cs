@@ -27,9 +27,8 @@ builder.Services.AddDbContext<QuoteDbContext>((serviceProvider, options) =>
         options.UseNpgsql(databaseOptions.QuoteDatabase);
     }
 });
-builder.Services.AddSingleton<INpgsqlConnectionFactory, NpgsqlConnectionFactory>();
 builder.Services.AddSingleton<RequestValidator<CreateQuoteVehicleRequest>, QuoteVehicleValidator>();
-builder.Services.AddScoped<IQuoteRepository, PostgresQuoteRepository>();
+builder.Services.AddScoped<IQuoteRepository, EfQuoteRepository>();
 builder.Services.AddScoped<IQuoteService, QuoteService>();
 
 builder.Services.AddCors(options =>

@@ -2,7 +2,7 @@ namespace PortfolioClubAssurance.Api.Entities;
 
 public sealed class QuoteStepSubmissionEntity
 {
-    public long Id { get; set; }
+    public Guid Id { get; set; }
 
     public Guid QuoteId { get; set; }
 
@@ -10,7 +10,7 @@ public sealed class QuoteStepSubmissionEntity
 
     public string PayloadJson { get; set; } = string.Empty;
 
-    public DateTime CreatedAtUtc { get; set; }
+    public DateTime SubmittedAtUtc { get; set; }
 
     public QuoteEntity? Quote { get; set; }
 }

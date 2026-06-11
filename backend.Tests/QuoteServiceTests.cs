@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
-using PortfolioClubAssurance.Api.Contracts;
-using PortfolioClubAssurance.Api.Data;
+using PortfolioClubAssurance.Api.Dtos.Requests;
+using PortfolioClubAssurance.Api.Repositories;
 using PortfolioClubAssurance.Api.Services;
 using PortfolioClubAssurance.Api.Validation;
 using Xunit;

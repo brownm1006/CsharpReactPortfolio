@@ -1,4 +1,4 @@
-using PortfolioClubAssurance.Api.Contracts;
+using PortfolioClubAssurance.Api.Dtos.Requests;
 using PortfolioClubAssurance.Api.Validation;
 using Xunit;
 

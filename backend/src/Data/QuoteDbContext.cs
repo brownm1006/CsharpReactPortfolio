@@ -39,12 +39,12 @@ public sealed class QuoteDbContext : DbContext
             entity.ToTable("quotes");
             entity.HasKey(quote => quote.Id);
 
-            entity.Property(quote => quote.Id).HasColumnName("id");
+            entity.Property(quote => quote.Id).HasColumnName("id").ValueGeneratedOnAdd();
             entity.Property(quote => quote.ProductType).HasColumnName("product_type");
             entity.Property(quote => quote.Status).HasColumnName("status");
             entity.Property(quote => quote.CurrentStep).HasColumnName("current_step");
-            entity.Property(quote => quote.CreatedAtUtc).HasColumnName("created_at_utc");
-            entity.Property(quote => quote.UpdatedAtUtc).HasColumnName("updated_at_utc");
+            entity.Property(quote => quote.CreatedAtUtc).HasColumnName("created_at_utc").ValueGeneratedOnAdd();
+            entity.Property(quote => quote.UpdatedAtUtc).HasColumnName("updated_at_utc").ValueGeneratedOnAddOrUpdate();
 
             entity
                 .HasMany(quote => quote.Vehicles)
@@ -62,7 +62,7 @@ public sealed class QuoteDbContext : DbContext
             entity.ToTable("quote_vehicles");
             entity.HasKey(vehicle => vehicle.Id);
 
-            entity.Property(vehicle => vehicle.Id).HasColumnName("id");
+            entity.Property(vehicle => vehicle.Id).HasColumnName("id").ValueGeneratedOnAdd();
             entity.Property(vehicle => vehicle.QuoteId).HasColumnName("quote_id");
             entity.Property(vehicle => vehicle.ModelYear).HasColumnName("model_year");
             entity.Property(vehicle => vehicle.ManufacturerId).HasColumnName("manufacturer_id");
@@ -75,8 +75,8 @@ public sealed class QuoteDbContext : DbContext
             entity.Property(vehicle => vehicle.TrackingSystemStatusId).HasColumnName("tracking_system_status_id");
             entity.Property(vehicle => vehicle.IntensiveEngravingStatusId).HasColumnName("intensive_engraving_status_id");
             entity.Property(vehicle => vehicle.ModifiedAfterManufacturingStatusId).HasColumnName("modified_after_manufacturing_status_id");
-            entity.Property(vehicle => vehicle.CreatedAtUtc).HasColumnName("created_at_utc");
-            entity.Property(vehicle => vehicle.UpdatedAtUtc).HasColumnName("updated_at_utc");
+            entity.Property(vehicle => vehicle.CreatedAtUtc).HasColumnName("created_at_utc").ValueGeneratedOnAdd();
+            entity.Property(vehicle => vehicle.UpdatedAtUtc).HasColumnName("updated_at_utc").ValueGeneratedOnAddOrUpdate();
 
             entity
                 .HasOne(vehicle => vehicle.Manufacturer)
@@ -97,13 +97,18 @@ public sealed class QuoteDbContext : DbContext
         modelBuilder.Entity<QuoteVehicleUsageEntity>(entity =>
         {
             entity.ToTable("quote_vehicle_usages");
-            entity.HasKey(usage => usage.QuoteVehicleId);
+            entity.HasKey(usage => usage.Id);
 
+            entity.Property(usage => usage.Id).HasColumnName("id").ValueGeneratedOnAdd();
             entity.Property(usage => usage.QuoteVehicleId).HasColumnName("quote_vehicle_id");
             entity.Property(usage => usage.UsedOutsideQuebecStatusId).HasColumnName("used_outside_quebec_status_id");
             entity.Property(usage => usage.CurrentOdometerKm).HasColumnName("current_odometer_km");
             entity.Property(usage => usage.AnnualDistanceKm).HasColumnName("annual_distance_km");
             entity.Property(usage => usage.DriveForBusiness).HasColumnName("drive_for_business");
+            entity.Property(usage => usage.CreatedAtUtc).HasColumnName("created_at_utc").ValueGeneratedOnAdd();
+            entity.Property(usage => usage.UpdatedAtUtc).HasColumnName("updated_at_utc").ValueGeneratedOnAddOrUpdate();
+
+            entity.HasIndex(usage => usage.QuoteVehicleId).IsUnique();
         });
 
         modelBuilder.Entity<QuoteStepSubmissionEntity>(entity =>
@@ -111,11 +116,11 @@ public sealed class QuoteDbContext : DbContext
             entity.ToTable("quote_step_submissions");
             entity.HasKey(submission => submission.Id);
 
-            entity.Property(submission => submission.Id).HasColumnName("id");
+            entity.Property(submission => submission.Id).HasColumnName("id").ValueGeneratedOnAdd();
             entity.Property(submission => submission.QuoteId).HasColumnName("quote_id");
             entity.Property(submission => submission.StepCode).HasColumnName("step_code");
             entity.Property(submission => submission.PayloadJson).HasColumnName("payload_json").HasColumnType("jsonb");
-            entity.Property(submission => submission.CreatedAtUtc).HasColumnName("created_at_utc");
+            entity.Property(submission => submission.SubmittedAtUtc).HasColumnName("submitted_at_utc").ValueGeneratedOnAdd();
         });
 
         modelBuilder.Entity<VehicleManufacturerEntity>(entity =>

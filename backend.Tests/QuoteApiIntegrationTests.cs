@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
-using PortfolioClubAssurance.Api.Contracts;
+using PortfolioClubAssurance.Api.Dtos.Lookups;
+using PortfolioClubAssurance.Api.Dtos.Requests;
+using PortfolioClubAssurance.Api.Dtos.Responses;
 using Testcontainers.PostgreSql;
 using Xunit;
 
