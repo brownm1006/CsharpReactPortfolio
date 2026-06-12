@@ -21,6 +21,8 @@ URLs locales par défaut :
 | Adminer | http://localhost:8081 |
 | PostgreSQL | `localhost:5432` |
 
+## Important à vérifier si le Firewall ne bloque pas les ports sur votre poste. Où que les ports ne sont pas déjà attribués à un autre processus.
+
 ## Installation des dépendances
 
 Les marches à suivre d'installation sont séparées par système d'exploitation :
@@ -30,7 +32,7 @@ Les marches à suivre d'installation sont séparées par système d'exploitation
 
 Ces guides couvrent notamment Git, Docker, Docker Compose, WSL 2 pour Windows 11, les ports requis et la validation de l'environnement local.
 
-## Démarrage rapide
+## Démarrage rapide (Vous devez créer un nouvel utilisateur  Docker Personal si vous n'en avez pas un)
 
 Depuis la racine du dépôt :
 
@@ -147,15 +149,20 @@ Paramètres locaux par défaut :
 
 | Paramètre | Valeur |
 | --- | --- |
-| Base de données | `portfolio_assurance` |
+| Système | `PostgreSQL` |
+| Serveur | `postgres` |
 | Utilisateur | `portfolio` |
 | Mot de passe | `portfolio_dev_password` |
-| Schéma | `quote` |
+| Base de données | `portfolio_assurance` |
+
+ 
 
 Adminer est disponible à l'adresse :
 
 ```text
 http://localhost:8081
+
+Lorsque connecté changer le Schema pour `quote`
 ```
 
 Dans Adminer, utilisez le serveur `postgres`, car Adminer s'exécute dans Docker Compose.

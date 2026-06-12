@@ -1,4 +1,4 @@
-# Installation des dépendances sur Windows 11
+# Installation des dépendances sur Windows 11. 
 
 Ce guide explique comment installer et valider les dépendances nécessaires pour exécuter le projet localement sur Windows 11.
 
@@ -139,6 +139,8 @@ ADMINER_PORT=18081
 
 ## 6. Valider l'environnement avec Docker Compose
 
+## Important vous devez obtenir un utilisateur Docker pour être en mesure de lancer Docker Desktop. Si cette application n'est pas lancer le serveur Docker ne fonctionne pas. Aussi la virtualisation doit être disponible dans le Bios de votre poste Windows.
+
 Depuis la racine du dépôt, démarrez les services :
 
 ```powershell
@@ -157,6 +159,8 @@ Résultat attendu :
 - `portfolio-assurance-adminer` est `Up`
 - `portfolio-assurance-backend` est `Up`
 - `portfolio-assurance-frontend` est `Up`
+
+## Par contre super important , il est possible que les port soit bloquer par le Firewall de windows
 
 Validez le frontend React :
 

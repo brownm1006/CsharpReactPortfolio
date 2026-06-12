@@ -1,4 +1,5 @@
-# Installation des dépendances sur macOS
+# Installation des dépendances sur macOS. 
+## Non testé car mon Laptop Mac a déjà un environnement Docker fonctionnel
 
 Ce guide explique comment installer et valider les dépendances nécessaires pour exécuter le projet localement sur macOS.
 
