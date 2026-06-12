@@ -36,9 +36,19 @@ Ces guides couvrent notamment Git, Docker, Docker Compose, WSL 2 pour Windows 11
 
 Depuis la racine du dépôt :
 
+Lancer en mode bloquant
+
+```bash
+docker compose up
+```
+## Important attendre de voire le message "VITE v7.3.5 ready in ..." avec Local : http://localhost:5173 dans la console utilisé pour lancer Docker 
+
+ou en mode Detach 
+
 ```bash
 docker compose up -d
 ```
+En mode detach vous avez un résumé de l'état des processus
 
 Ouvrez ensuite le frontend :
 
